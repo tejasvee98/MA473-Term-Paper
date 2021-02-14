@@ -8,7 +8,7 @@ beta_star = 1;
 
 tc=@(x) pi_epsilon(x-K,epsilon);
 bc1=@(t) 0;
-bc2=@(t) S_max - K * exp(-r(0));
+bc2=@(t) S_max - K * exp(-r(0)*(1-t));
 
 [U,s,t]=piecewise_spatial_mesh_bs(S_max,T,N,M,r,sigma,K,alpha,beta_star,epsilon,tc,bc1,bc2);
 

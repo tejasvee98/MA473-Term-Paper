@@ -15,11 +15,11 @@ function [U,s,t]=piecewise_spatial_mesh_bs(S_max,T,N,M,r,sigma,K,alpha,beta_star
             x_i = get_x(i, N, K, alpha, beta_star, S_max, epsilon);
             h_i = get_h(i, N, K, alpha, beta_star, S_max, epsilon);
             h_i_plus_1 = get_h(i+1, N, K, alpha, beta_star, S_max, epsilon);
-            sig_ij = sigma(i,j);
+            sig_ij = sigma(i,j)^2;
             r_j = r(j);
-            A(i,i-1) = (t(j+1) * x_i) * (r_j - (sig_ij * x_i / (h_i))) / (h_i + h_i_plus_1);
+            A(i,i-1) = (t(j+1) * x_i) * (r_j - (sig_ij * (x_i^2) / (h_i))) / (h_i + h_i_plus_1);
             A(i,i) = 1 + (sig_ij  * t(j+1) * (x_i^2))/(h_i * h_i_plus_1) + r(j) * t(j+1);
-            A(i,i+1) = -((t(j+1) * x_i) * (r_j + (sig_ij * x_i / (h_i_plus_1))) / (h_i + h_i_plus_1));
+            A(i,i+1) = -((t(j+1) * x_i) * (r_j + (sig_ij * (x_i^2) / (h_i_plus_1))) / (h_i + h_i_plus_1));
         end
         % Can also use iterative methods to solve Ax=b
         U(:,j)=A\U(:,j+1);
