@@ -1,6 +1,8 @@
 function x_i = get_x(i, N, K, alpha, beta_star, S_max, epsilon)
     h = (K-epsilon)/(1 + alpha*(N/4 - 2)/beta_star);
-    if i==1
+    if i==0
+        x_i = 0;
+    elseif i==1
         x_i = h;
     elseif i < N/4
         x_i = h.*(1 + (i-1).*alpha/beta_star);
