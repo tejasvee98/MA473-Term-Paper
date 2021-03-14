@@ -5,12 +5,14 @@ N=[32,64,128,256,512,1024]; M=1024;
 T=1; r=@(t) 0.06; sigma = @(x,t) 0.2*(1 + (t * exp(-x))); K=25; S_max=100;
 epsilon=1e-4;
 
-alpha = 0.01;
-beta_star = 1.1;
-
 tc=@(x) pi_epsilon(x-K,epsilon);
 bc1=@(t) 0;
 bc2=@(t) S_max - K .* exp(-r(0).*(1-t));
+
+[alpha, beta_star]=get_optimal_alpha_betastar(S_max,T,64,M,r,sigma,K,epsilon,tc,bc1,bc2);
+
+% alpha = 0.01;
+% beta_star = 1.1;
 
 error=zeros(length(N),1);
 [U_exact,x_exact,t_exact]=piecewise_spatial_mesh_bs(S_max,T,2048,M,r,sigma,K,alpha,beta_star,epsilon,tc,bc1,bc2);
