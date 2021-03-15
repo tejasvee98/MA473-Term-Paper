@@ -2,7 +2,7 @@ clc;
 format long e
 N=[128,256,512,1024]; M=1024;
 
-T=1; r=@(t) 0.06; sigma = @(x,t) 0.2*(1 + (t * exp(-x))); K=25; S_max=100;
+T=1; r=@(t) 0.06; sigma = @(x,t) 0.4*(2+sin(x)); K=25; S_max=100;
 epsilon=1e-4;
 
 alpha = 0.03;

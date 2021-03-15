@@ -1,5 +1,5 @@
 function x_i = get_x(i, N, K, alpha, beta_star, S_max, epsilon)
-    h = (K-epsilon)/((1 + alpha*((N/4 - 2)/beta_star)));
+    h = (K - epsilon)/(1 + (alpha/beta_star)*(N/4 -2));
     if i==1
         x_i = h;
     elseif i < N/4 && i>1

@@ -1,4 +1,4 @@
-function [U,x,t]=piecewise_spatial_mesh_bs(S_max,T,N,M,r,sigma,K,alpha,beta_star,epsilon,tc,bc1,bc2)
+function [U,x,t]=piecewise_spatial_mesh_bs(S_max,T,N,M,r,sigma,K,alpha,beta_star,epsilon,bc1,bc2)
     x=zeros(1,N+1);
     h=zeros(1,N+1);
     for i=2:N+1
@@ -8,9 +8,11 @@ function [U,x,t]=piecewise_spatial_mesh_bs(S_max,T,N,M,r,sigma,K,alpha,beta_star
     t=(0:T/M:T);
     tau=T/M;
     U=zeros(N+1,M+1);
-    U(:,M+1)=tc(x);
     U(1,:)=bc1(t);
     U(N+1,:)=bc2(t);
+    for i=2:N
+        U(i,M+1)=pi_epsilon(x(i)-K,epsilon);
+    end
     A=zeros(N+1,N+1);
     A(1,1)=1;
     A(1,2)=0;
